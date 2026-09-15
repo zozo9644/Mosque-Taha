@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>مـسـجـد طـه | Mosquée Taha</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="nav-container">
+
+        <a href="#accueil" class="logo">
+            <img src="images/logo.png" alt="Mosquée Taha">
+        </a>
+
+        <nav class="desktop-menu">
+            <a href="#accueil" class="active">ACCUEIL</a>
+            <a href="#mosquee">PRÉSENTATION</a>
+            <a href="#prayer-times">HORAIRES DE PRIÈRES</a>
+            <a href="#activites">ACTIVITÉS</a>
+            <a href="#dons">DONS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+
+        <button class="hamburger" id="hamburger">
+            ☰
+        </button>
+
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="#accueil">ACCUEIL</a>
+        <a href="#mosquee">PRÉSENTATION</a>
+        <a href="#prayer-times">HORAIRES DE PRIÈRES</a>
+        <a href="#activites">ACTIVITÉS</a>
+        <a href="#dons">DONS</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= SLIDER ================= -->
+
+<section class="slider" id="accueil">
+
+    <div class="slide active">
+        <img src="images/mosque1.jpg" alt="Mosquée Taha">
+
+        <div class="slide-overlay"></div>
+
+        <div class="slide-content">
+
+            <p class="bismillah">
+                بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            </p>
+
+            <h1>
+                Bienvenue à la<br>
+                <span>Mosquée Taha</span>
+            </h1>
+
+            <p>
+                Un lieu de prière, de savoir et de fraternité.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#prayer-times" class="btn gold">
+                    Horaires de prières
+                </a>
+
+                <a href="#mosquee" class="btn transparent">
+                    Découvrir la mosquée
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="slide">
+        <img src="images/mosque2.jpg" alt="Mosquée Taha">
+
+        <div class="slide-overlay"></div>
+
+        <div class="slide-content">
+
+            <p class="bismillah">
+                أَهْلًا وَسَهْلًا وَمَرْحَبًا
+            </p>
+
+            <h1>
+                Votre mosquée,<br>
+                <span>Votre communauté</span>
+            </h1>
+
+            <p>
+                Ensemble dans la foi, la connaissance et la fraternité.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#activites" class="btn gold">
+                    Nos activités
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- arrows -->
+
+    <button class="slider-arrow prev" id="prev">
+        ❮
+    </button>
+
+    <button class="slider-arrow next" id="next">
+        ❯
+    </button>
+
+
+    <!-- dots -->
+
+    <div class="dots">
+
+        <span class="dot active" data-slide="0"></span>
+        <span class="dot" data-slide="1"></span>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WELCOME ================= -->
+
+<section class="welcome">
+
+    <div class="container">
+
+        <div class="arabic-title">
+            السلام عليكم ورحمة الله وبركاته
+        </div>
+
+        <h2>
+            Assalamou alaykoum
+        </h2>
+
+        <p>
+            Bienvenue sur le site de la Mosquée Taha.
+            Retrouvez ici les horaires de prières, les activités,
+            les actualités et toutes les informations concernant notre mosquée.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PRAYER ================= -->
+
+<section id="prayer-times" class="prayer-section">
+    <div class="container">
+
+        <h2>مواقيت الصلاة</h2>
+
+        <p id="date">Chargement...</p>
+        <p id="hijriDate">Chargement...</p>
+
+        <div class="next-prayer">
+            <span>الصلاة القادمة</span>
+            <h3 id="nextPrayerName">Chargement...</h3>
+            <div id="countdown">--:--:--</div>
+        </div>
+
+        <div class="prayer-grid">
+
+            <div class="prayer-card" data-prayer="Fajr">
+                <span>الفجر</span>
+                <strong id="Fajr">--:--</strong>
+            </div>
+
+            <div class="prayer-card" data-prayer="Dhuhr">
+                <span>الظهر</span>
+                <strong id="Dhuhr">--:--</strong>
+            </div>
+
+            <div class="prayer-card" data-prayer="Asr">
+                <span>العصر</span>
+                <strong id="Asr">--:--</strong>
+            </div>
+
+            <div class="prayer-card" data-prayer="Maghrib">
+                <span>المغرب</span>
+                <strong id="Maghrib">--:--</strong>
+            </div>
+
+            <div class="prayer-card" data-prayer="Isha">
+                <span>العشاء</span>
+                <strong id="Isha">--:--</strong>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="mosquee">
+
+    <div class="container about-grid">
+
+        <div class="about-image">
+
+            <img src="images/mosque3.jpg" alt="Mosquée Taha">
+
+        </div>
+
+        <div class="about-text">
+
+            <span>PRÉSENTATION</span>
+
+            <h2>
+                La Mosquée Taha
+            </h2>
+
+            <div class="gold-line left"></div>
+
+            <p>
+                La Mosquée Taha est un espace dédié à la prière,
+                à l'apprentissage du Coran et au rassemblement
+                de la communauté.
+            </p>
+
+            <p>
+                Notre mosquée accueille les fidèles dans un cadre
+                respectueux, chaleureux et ouvert à tous.
+            </p>
+
+            <a href="#contact" class="btn gold">
+                Nous contacter
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ACTIVITIES ================= -->
+
+<section class="activities" id="activites">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>NOS SERVICES</span>
+
+            <h2>Activités de la mosquée</h2>
+
+            <div class="gold-line"></div>
+
+        </div>
+
+
+        <div class="activity-grid">
+
+            <div class="activity-card">
+
+                <div class="activity-icon">📖</div>
+
+                <h3>Coran</h3>
+
+                <p>
+                    Apprentissage et mémorisation du Saint Coran.
+                </p>
+
+            </div>
+
+
+            <div class="activity-card">
+
+                <div class="activity-icon">🕌</div>
+
+                <h3>Prières</h3>
+
+                <p>
+                    Prières quotidiennes et prière du vendredi.
+                </p>
+
+            </div>
+
+
+            <div class="activity-card">
+
+                <div class="activity-icon">🎓</div>
+
+                <h3>Cours</h3>
+
+                <p>
+                    Cours religieux et rappels pour la communauté.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DON ================= -->
+
+<section class="don" id="dons">
+
+    <div class="container don-container">
+
+        <div>
+
+            <span>SOUTENIR LA MOSQUÉE</span>
+
+            <h2>
+                Votre contribution compte
+            </h2>
+
+            <p>
+                Chaque don contribue au fonctionnement
+                et au développement de la mosquée.
+            </p>
+
+        </div>
+
+        <a href="#" class="btn donation">
+            Faire un don
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section class="contact" id="contact">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>CONTACT</span>
+
+            <h2>Nous contacter</h2>
+
+            <div class="gold-line"></div>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+            <div class="contact-card">
+                <div>📍</div>
+                <h3>Adresse</h3>
+                <p>Casablanca, Maroc</p>
+            </div>
+
+            <div class="contact-card">
+                <div>📞</div>
+                <h3>Téléphone</h3>
+                <p>+212 6 20 80 16 05</p>
+            </div>
+
+            <div class="contact-card">
+                <div>✉️</div>
+                <h3>Email</h3>
+                <p>amzil1300@gmail.com</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container footer">
+
+        <div>
+
+            <h3>Mosquée Taha</h3>
+
+            <p>
+                Un lieu de prière, de savoir et de fraternité.
+            </p>
+
+        </div>
+
+        <div>
+
+            <p>
+                © 2026 Mosquée Taha
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

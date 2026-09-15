@@ -1,0 +1,759 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    color: #222;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-container {
+    height: 92px;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img {
+    width: 165px;
+}
+
+.desktop-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.desktop-menu a {
+    text-decoration: none;
+    color: #222;
+    font-size: 13px;
+    letter-spacing: .5px;
+    transition: .3s;
+}
+
+.desktop-menu a:hover,
+.desktop-menu a.active {
+    color: #b28a45;
+}
+
+.hamburger {
+    display: none;
+    border: none;
+    background: none;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+
+/* ================= SLIDER ================= */
+
+.slider {
+    position: relative;
+    height: 650px;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.43);
+}
+
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    width: 90%;
+    max-width: 850px;
+
+    text-align: center;
+    color: white;
+}
+
+.bismillah {
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+.slide-content h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 55px;
+    line-height: 1.2;
+}
+
+.slide-content h1 span {
+    color: #d3a65c;
+}
+
+.slide-content > p:not(.bismillah) {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 25px;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: .3s;
+}
+
+.gold {
+    background: #b28a45;
+    color: white;
+}
+
+.gold:hover {
+    background: #8f6c32;
+}
+
+.transparent {
+    border: 1px solid white;
+    color: white;
+}
+
+.transparent:hover {
+    background: white;
+    color: #222;
+}
+
+
+/* ARROWS */
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+
+    background: rgba(0,0,0,.35);
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+
+/* DOTS */
+
+.dots {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 8px;
+
+    z-index: 20;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.6);
+
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #c99a50;
+}
+
+
+/* ================= WELCOME ================= */
+
+.welcome {
+    padding: 65px 20px;
+    text-align: center;
+}
+
+.arabic-title {
+    color: #b28a45;
+    font-size: 26px;
+}
+
+.welcome h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 36px;
+    margin: 8px 0 15px;
+}
+
+.welcome p:last-child {
+    max-width: 750px;
+    margin: auto;
+    color: #777;
+    line-height: 1.9;
+}
+
+
+/* ================= TITLES ================= */
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title span,
+.about-text > span,
+.don span {
+    color: #b28a45;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.section-title h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 38px;
+    margin: 8px 0;
+}
+
+.gold-line {
+    width: 60px;
+    height: 2px;
+    background: #b28a45;
+    margin: 14px auto;
+}
+
+.gold-line.left {
+    margin-left: 0;
+}
+
+.section-title p {
+    color: #888;
+}
+
+
+/* ================= PRAYERS ================= */
+
+.prayers {
+    padding: 85px 0;
+    background: #f6f4ef;
+}
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 15px;
+}
+
+.prayer-card {
+    background: white;
+    padding: 30px 15px;
+    text-align: center;
+    border-radius: 4px;
+
+    box-shadow: 0 5px 25px rgba(0,0,0,.05);
+
+    transition: .3s;
+}
+
+.prayer-card:hover {
+    transform: translateY(-7px);
+}
+
+.icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.prayer-card h3 {
+    margin-bottom: 8px;
+}
+
+.prayer-card strong {
+    font-size: 25px;
+    color: #b28a45;
+}
+
+.jumua {
+    margin-top: 25px;
+
+    background: #203d36;
+    color: white;
+
+    padding: 20px 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+
+    border-radius: 4px;
+}
+
+.jumua span {
+    font-size: 28px;
+}
+
+.jumua h3 {
+    color: #d3a65c;
+}
+
+.jumua p {
+    color: #ddd;
+    font-size: 13px;
+}
+
+.jumua strong {
+    font-size: 23px;
+}
+
+
+/* ================= ABOUT ================= */
+
+.about {
+    padding: 100px 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+.about-text h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 43px;
+    margin: 8px 0;
+}
+
+.about-text p {
+    color: #666;
+    line-height: 1.9;
+    margin-bottom: 18px;
+}
+
+
+/* ================= ACTIVITIES ================= */
+
+.activities {
+    padding: 90px 0;
+    background: #f6f4ef;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 25px;
+}
+
+.activity-card {
+    background: white;
+    text-align: center;
+    padding: 40px 25px;
+    transition: .3s;
+}
+
+.activity-card:hover {
+    transform: translateY(-7px);
+}
+
+.activity-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.activity-card h3 {
+    margin-bottom: 12px;
+}
+
+.activity-card p {
+    color: #777;
+    line-height: 1.7;
+}
+
+
+/* ================= DON ================= */
+
+.don {
+    padding: 70px 0;
+    background: #203d36;
+    color: white;
+}
+
+.don-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.don h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 38px;
+    margin: 8px 0;
+}
+
+.don p {
+    color: #ddd;
+}
+
+.donation {
+    background: #c99a50;
+    white-space: nowrap;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact {
+    padding: 90px 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.contact-card {
+    text-align: center;
+    border: 1px solid #eee;
+    padding: 35px;
+}
+
+.contact-card > div {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.contact-card p {
+    color: #777;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #151f1d;
+    color: white;
+    padding: 40px 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px) {
+
+    .desktop-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .mobile-menu.show {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 5%;
+    }
+
+    .mobile-menu a {
+        padding: 12px 0;
+        text-decoration: none;
+        color: #333;
+        border-bottom: 1px solid #eee;
+    }
+
+    .slider {
+        height: 560px;
+    }
+
+    .slide-content h1 {
+        font-size: 40px;
+    }
+
+    .prayer-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .activity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .don-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}
+
+
+@media(max-width:500px) {
+
+    .nav-container {
+        height: 75px;
+    }
+
+    .logo img {
+        width: 125px;
+    }
+
+    .slider {
+        height: 500px;
+    }
+
+    .slide-content h1 {
+        font-size: 31px;
+    }
+
+    .bismillah {
+        font-size: 20px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .prayer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .jumua {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+/* ================= NEXT PRAYER ================= */
+
+.next-prayer {
+    max-width: 850px;
+    margin: 0 auto 30px;
+
+    padding: 25px 35px;
+
+    background: #203d36;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 5px;
+}
+
+.next-prayer small {
+    color: #d3a65c;
+    letter-spacing: 2px;
+}
+
+.next-prayer h2 {
+    margin-top: 5px;
+    font-family: "Playfair Display", serif;
+}
+
+.countdown {
+    font-size: 32px;
+    font-weight: bold;
+    color: #d3a65c;
+    min-width: 150px;
+    text-align: right;
+}
+
+.hijri {
+    margin-top: 5px;
+    color: #b28a45 !important;
+}
+
+
+/* PRIÈRE ACTUELLE */
+
+.prayer-card.next {
+    border: 2px solid #b28a45;
+    transform: translateY(-5px);
+}
+.prayer-section {
+    padding: 80px 20px;
+    background: #f7f7f7;
+    text-align: center;
+}
+
+.prayer-section h2 {
+    color: #14532d;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+#date,
+#hijriDate {
+    color: #666;
+    margin: 5px;
+}
+
+.next-prayer {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #14532d;
+    color: white;
+    border-radius: 15px;
+}
+
+.next-prayer span {
+    font-size: 14px;
+}
+
+.next-prayer h3 {
+    font-size: 28px;
+    margin: 10px;
+}
+
+.countdown {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.prayer-card {
+    background: white;
+    padding: 25px 15px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.prayer-card span {
+    display: block;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.prayer-card strong {
+    font-size: 24px;
+    color: #14532d;
+}
+
+.prayer-card.next {
+    background: #d4af37;
+    transform: translateY(-5px);
+}
+
+.prayer-card.next strong,
+.prayer-card.next span {
+    color: white;
+}
+
+@media (max-width: 700px) {
+
+    .prayer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
