@@ -2,7 +2,7 @@
   "name": "مسجد طه",
   "short_name": "مسجد طه",
   "description": "الموقع الرسمي لمسجد طه - مواقيت الصلاة وحزب اليوم",
-  "start_url": "index.html",
+  "start_url": "prieres.html",
   "display": "standalone",
   "background_color": "#203d36",
   "theme_color": "#203d36",
