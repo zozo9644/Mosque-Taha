@@ -10,37 +10,54 @@ const prayers = [
     { name: "العشاء", key: "Isha" }
 ];
 
+const latitude = 33.5731;
+const longitude = -7.5898;
+
+const CACHE_KEY = "mosqueeTahaPrayerTimes30";
+
 let prayerTimes = {};
 let countdownInterval = null;
 
 
 // ==========================================
-// GET PRAYER TIMES
+// FORMAT DATE
 // ==========================================
 
-async function getPrayerTimes() {
+function formatDate(date) {
+
+    const day =
+        String(date.getDate()).padStart(2, "0");
+
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
+
+    const year =
+        date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+
+// ==========================================
+// GET 30 DAYS
+// ==========================================
+
+async function load30Days() {
 
     try {
 
         const now = new Date();
 
-        const day =
-            String(now.getDate()).padStart(2, "0");
-
-        const month =
-            String(now.getMonth() + 1).padStart(2, "0");
-
         const year =
             now.getFullYear();
 
-
-        // Casablanca
-        const latitude = 33.5731;
-        const longitude = -7.5898;
+        const month =
+            now.getMonth() + 1;
 
 
+        // الشهر الحالي
         const url =
-            `https://api.aladhan.com/v1/timings/${day}-${month}-${year}` +
+            `https://api.aladhan.com/v1/calendar/${year}/${month}` +
             `?latitude=${latitude}` +
             `&longitude=${longitude}` +
             `&method=21` +
@@ -55,9 +72,11 @@ async function getPrayerTimes() {
 
 
         if (!response.ok) {
+
             throw new Error(
                 "API Error: " + response.status
             );
+
         }
 
 
@@ -66,135 +85,397 @@ async function getPrayerTimes() {
 
 
         if (data.code !== 200) {
+
             throw new Error(
                 "AlAdhan API Error"
             );
+
         }
 
 
-        prayerTimes =
-            data.data.timings;
+        let days =
+            data.data;
 
 
         // ==========================================
-        // PRAYER TIMES
+        // الشهر الموالي
         // ==========================================
 
-        document.getElementById("Fajr").textContent =
-            cleanTime(prayerTimes.Fajr);
+        const nextMonthDate =
+            new Date(
+                year,
+                now.getMonth() + 1,
+                1
+            );
 
-        document.getElementById("Dhuhr").textContent =
-            cleanTime(prayerTimes.Dhuhr);
 
-        document.getElementById("Asr").textContent =
-            cleanTime(prayerTimes.Asr);
+        const nextMonth =
+            nextMonthDate.getMonth() + 1;
 
-        document.getElementById("Maghrib").textContent =
-            cleanTime(prayerTimes.Maghrib);
+        const nextYear =
+            nextMonthDate.getFullYear();
 
-        document.getElementById("Isha").textContent =
-            cleanTime(prayerTimes.Isha);
+
+        const nextUrl =
+            `https://api.aladhan.com/v1/calendar/${nextYear}/${nextMonth}` +
+            `?latitude=${latitude}` +
+            `&longitude=${longitude}` +
+            `&method=21` +
+            `&school=0` +
+            `&midnightMode=0` +
+            `&latitudeAdjustmentMethod=1` +
+            `&iso8601=false`;
+
+
+        const nextResponse =
+            await fetch(nextUrl);
+
+
+        if (nextResponse.ok) {
+
+            const nextData =
+                await nextResponse.json();
+
+
+            if (nextData.code === 200) {
+
+                days = [
+                    ...days,
+                    ...nextData.data
+                ];
+
+            }
+
+        }
 
 
         // ==========================================
-        // DATES
+        // ناخدو 30 يوم ابتداءً من اليوم
         // ==========================================
 
-        document.getElementById(
-            "gregorianDate"
-        ).textContent =
-            data.data.date.readable;
+        const today =
+            new Date();
 
-
-        const hijri =
-            data.data.date.hijri;
-
-
-        document.getElementById(
-            "hijriDate"
-        ).textContent =
-            `${hijri.day} ${hijri.month.ar} ${hijri.year} هـ`;
-
-
-        // ==========================================
-        // HIZB
-        // ==========================================
-
-        const hijriDay =
-            Number(hijri.day);
-
-
-        const hizbSbah =
-            (hijriDay * 2) - 1;
-
-
-        const hizbMassae =
-            hijriDay * 2;
-
-
-        document.getElementById(
-            "hizbSbah"
-        ).textContent =
-            `حزب ${hizbSbah}`;
-
-
-        document.getElementById(
-            "hizbMassae"
-        ).textContent =
-            `حزب ${hizbMassae}`;
-
-           
-
-function getHizbJomoa() {
-
-    const today = new Date();
-
-    // الجمعة 11 شتنبر 2026 = حزب 7
-    const referenceFriday = new Date(2026, 8, 11);
-
-    const referenceHizb = 8;
-
-    const difference =
-        today.getTime() - referenceFriday.getTime();
-
-    const daysDifference =
-        Math.floor(
-            difference / (1000 * 60 * 60 * 24)
+        today.setHours(
+            0,
+            0,
+            0,
+            0
         );
 
-    const weeks =
-        Math.floor(daysDifference / 7);
 
-    let hizb =
-        referenceHizb + weeks;
+        const futureDays =
+            days
+                .filter(day => {
 
-    // من بعد حزب 60 يرجع لحزب 1
-    hizb =
-        ((hizb - 1) % 60) + 1;
+                    const [
+                        dayNumber,
+                        monthNumber,
+                        yearNumber
+                    ] =
+                        day.date.gregorian.date
+                            .split("-")
+                            .map(Number);
 
-    document.getElementById("hizbJomoa").textContent =
-        `حزب ${hizb}`;
-}
 
-getHizbJomoa();
+                    const date =
+                        new Date(
+                            yearNumber,
+                            monthNumber - 1,
+                            dayNumber
+                        );
 
+
+                    return date >= today;
+
+                })
+                .slice(0, 30);
 
 
         // ==========================================
-        // NEXT PRAYER
+        // SAVE CACHE
         // ==========================================
 
-        updateNextPrayer();
+        localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify(futureDays)
+        );
+
+
+        console.log(
+            "تم حفظ مواقيت 30 يوم القادمة ✅"
+        );
+
+
+        return futureDays;
 
 
     } catch (error) {
 
         console.error(
-            "Erreur:",
+            "خطأ في تحميل 30 يوم:",
             error
         );
 
+        return null;
+
     }
+
+}
+
+
+// ==========================================
+// GET SAVED DATA
+// ==========================================
+
+function getCachedDays() {
+
+    const saved =
+        localStorage.getItem(
+            CACHE_KEY
+        );
+
+
+    if (!saved) {
+
+        return null;
+
+    }
+
+
+    try {
+
+        return JSON.parse(saved);
+
+    } catch (error) {
+
+        console.error(
+            "Cache error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+// ==========================================
+// GET TODAY
+// ==========================================
+
+function getTodayData(days) {
+
+    if (!days || !days.length) {
+
+        return null;
+
+    }
+
+
+    const today =
+        formatDate(
+            new Date()
+        );
+
+
+    return days.find(day => {
+
+        return day.date.gregorian.date === today;
+
+    }) || days[0];
+
+}
+
+
+// ==========================================
+// DISPLAY DATA
+// ==========================================
+
+function displayPrayerData(dayData) {
+
+    if (!dayData) {
+
+        return;
+
+    }
+
+
+    prayerTimes =
+        dayData.timings;
+
+
+    // ==========================================
+    // PRAYER TIMES
+    // ==========================================
+
+    document.getElementById("Fajr").textContent =
+        cleanTime(prayerTimes.Fajr);
+
+    document.getElementById("Dhuhr").textContent =
+        cleanTime(prayerTimes.Dhuhr);
+
+    document.getElementById("Asr").textContent =
+        cleanTime(prayerTimes.Asr);
+
+    document.getElementById("Maghrib").textContent =
+        cleanTime(prayerTimes.Maghrib);
+
+    document.getElementById("Isha").textContent =
+        cleanTime(prayerTimes.Isha);
+
+
+    // ==========================================
+    // GREGORIAN DATE
+    // ==========================================
+
+    document.getElementById(
+        "gregorianDate"
+    ).textContent =
+        dayData.date.readable;
+
+
+    // ==========================================
+    // HIJRI DATE
+    // ==========================================
+
+    const hijri =
+        dayData.date.hijri;
+
+
+    document.getElementById(
+        "hijriDate"
+    ).textContent =
+        `${hijri.day} ${hijri.month.ar} ${hijri.year} هـ`;
+
+
+    // ==========================================
+    // HIZB SABAH / MASSAE
+    // ==========================================
+
+    const hijriDay =
+        Number(hijri.day);
+
+
+    const hizbSbah =
+        (hijriDay * 2) - 1;
+
+
+    const hizbMassae =
+        hijriDay * 2;
+
+
+    const hizbSbahElement =
+        document.getElementById(
+            "hizbSbah"
+        );
+
+
+    const hizbMassaeElement =
+        document.getElementById(
+            "hizbMassae"
+        );
+
+
+    if (hizbSbahElement) {
+
+        hizbSbahElement.textContent =
+            `حزب ${hizbSbah}`;
+
+    }
+
+
+    if (hizbMassaeElement) {
+
+        hizbMassaeElement.textContent =
+            `حزب ${hizbMassae}`;
+
+    }
+
+
+    // ==========================================
+    // HIZB JOMOA
+    // ==========================================
+
+    getHizbJomoa();
+
+
+    // ==========================================
+    // NEXT PRAYER
+    // ==========================================
+
+    updateNextPrayer();
+
+}
+
+
+// ==========================================
+// HIZB JOMOA
+// ==========================================
+
+function getHizbJomoa() {
+
+    const element =
+        document.getElementById(
+            "hizbJomoa"
+        );
+
+
+    // إلا ما كانش العنصر فالصفحة
+    if (!element) {
+
+        return;
+
+    }
+
+
+    const today =
+        new Date();
+
+
+    // الجمعة 11 شتنبر 2026 = حزب 7
+    const referenceFriday =
+        new Date(
+            2026,
+            8,
+            11
+        );
+
+
+    const referenceHizb =
+        8;
+
+
+    const difference =
+        today.getTime() -
+        referenceFriday.getTime();
+
+
+    const daysDifference =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const weeks =
+        Math.floor(
+            daysDifference / 7
+        );
+
+
+    let hizb =
+        referenceHizb + weeks;
+
+
+    // الدوران من 60 إلى 1
+    hizb =
+        ((hizb - 1) % 60) + 1;
+
+
+    element.textContent =
+        `حزب ${hizb}`;
 
 }
 
@@ -206,8 +487,11 @@ getHizbJomoa();
 function cleanTime(time) {
 
     if (!time) {
+
         return "--:--";
+
     }
+
 
     return time.split(" ")[0];
 
@@ -221,7 +505,9 @@ function cleanTime(time) {
 function updateNextPrayer() {
 
     if (!prayerTimes.Fajr) {
+
         return;
+
     }
 
 
@@ -229,20 +515,30 @@ function updateNextPrayer() {
         new Date();
 
 
-    let nextPrayer = null;
-    let nextTime = null;
+    let nextPrayer =
+        null;
+
+    let nextTime =
+        null;
 
 
     for (const prayer of prayers) {
 
         const time =
             cleanTime(
-                prayerTimes[prayer.key]
+                prayerTimes[
+                    prayer.key
+                ]
             );
 
 
-        const [hours, minutes] =
-            time.split(":").map(Number);
+        const [
+            hours,
+            minutes
+        ] =
+            time
+                .split(":")
+                .map(Number);
 
 
         const prayerDate =
@@ -259,9 +555,11 @@ function updateNextPrayer() {
 
         if (prayerDate > now) {
 
-            nextPrayer = prayer;
+            nextPrayer =
+                prayer;
 
-            nextTime = prayerDate;
+            nextTime =
+                prayerDate;
 
             break;
 
@@ -276,7 +574,8 @@ function updateNextPrayer() {
 
     if (!nextPrayer) {
 
-        nextPrayer = prayers[0];
+        nextPrayer =
+            prayers[0];
 
 
         const time =
@@ -285,8 +584,13 @@ function updateNextPrayer() {
             );
 
 
-        const [hours, minutes] =
-            time.split(":").map(Number);
+        const [
+            hours,
+            minutes
+        ] =
+            time
+                .split(":")
+                .map(Number);
 
 
         nextTime =
@@ -309,7 +613,7 @@ function updateNextPrayer() {
 
 
     // ==========================================
-    // DISPLAY
+    // DISPLAY NEXT PRAYER
     // ==========================================
 
     document.getElementById(
@@ -323,7 +627,9 @@ function updateNextPrayer() {
     // ==========================================
 
     document
-        .querySelectorAll(".prayer-card")
+        .querySelectorAll(
+            ".prayer-card"
+        )
         .forEach(card => {
 
             card.classList.remove(
@@ -388,7 +694,7 @@ function startCountdown(targetTime) {
             );
 
 
-            getPrayerTimes();
+            initializePrayerTimes();
 
             return;
 
@@ -403,13 +709,15 @@ function startCountdown(targetTime) {
 
         const minutes =
             Math.floor(
-                (difference % 3600000) / 60000
+                (difference % 3600000) /
+                60000
             );
 
 
         const seconds =
             Math.floor(
-                (difference % 60000) / 1000
+                (difference % 60000) /
+                1000
             );
 
 
@@ -418,9 +726,7 @@ function startCountdown(targetTime) {
         ).textContent =
 
             `${String(hours).padStart(2, "0")}:` +
-
             `${String(minutes).padStart(2, "0")}:` +
-
             `${String(seconds).padStart(2, "0")}`;
 
     }
@@ -439,17 +745,73 @@ function startCountdown(targetTime) {
 
 
 // ==========================================
+// INITIALIZE
+// ==========================================
+
+async function initializePrayerTimes() {
+
+    let days =
+        getCachedDays();
+
+
+    // ==========================================
+    // ONLINE
+    // ==========================================
+
+    if (navigator.onLine) {
+
+        const freshDays =
+            await load30Days();
+
+
+        if (freshDays) {
+
+            days =
+                freshDays;
+
+        }
+
+    }
+
+
+    // ==========================================
+    // OFFLINE
+    // ==========================================
+
+    if (!days) {
+
+        console.log(
+            "لا توجد بيانات محفوظة للعمل Offline."
+        );
+
+        return;
+
+    }
+
+
+    const todayData =
+        getTodayData(days);
+
+
+    displayPrayerData(
+        todayData
+    );
+
+}
+
+
+// ==========================================
 // START
 // ==========================================
 
-getPrayerTimes();
+initializePrayerTimes();
 
 
 // ==========================================
-// UPDATE EVERY HOUR
+// UPDATE EVERY 6 HOURS
 // ==========================================
 
 setInterval(
-    getPrayerTimes,
-    60 * 60 * 1000
+    initializePrayerTimes,
+    6 * 60 * 60 * 1000
 );
