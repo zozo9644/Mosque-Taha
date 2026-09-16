@@ -13,7 +13,8 @@ const prayers = [
 const latitude = 33.5731;
 const longitude = -7.5898;
 
-const CACHE_KEY = "mosqueeTahaPrayerTimes30";
+// نسخة جديدة باش نحيدو الـ cache القديم
+const CACHE_KEY = "mosqueeTahaPrayerTimes30_v2";
 
 let prayerTimes = {};
 let countdownInterval = null;
@@ -25,16 +26,33 @@ let countdownInterval = null;
 
 function formatDate(date) {
 
-    const day =
-        String(date.getDate()).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
 
-    const month =
-        String(date.getMonth() + 1).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
 
-    const year =
-        date.getFullYear();
+    const year = date.getFullYear();
 
     return `${day}-${month}-${year}`;
+}
+
+
+// ==========================================
+// API URL
+// ==========================================
+
+function getCalendarUrl(year, month) {
+
+    return (
+        `https://api.aladhan.com/v1/calendar/${year}/${month}` +
+        `?latitude=${latitude}` +
+        `&longitude=${longitude}` +
+        `&method=21` +
+        `&school=0` +
+        `&midnightMode=0` +
+        `&latitudeAdjustmentMethod=1` +
+        `&iso8601=false`
+    );
+
 }
 
 
@@ -48,23 +66,17 @@ async function load30Days() {
 
         const now = new Date();
 
-        const year =
-            now.getFullYear();
+        const year = now.getFullYear();
 
-        const month =
-            now.getMonth() + 1;
+        const month = now.getMonth() + 1;
 
 
+        // ==========================================
         // الشهر الحالي
+        // ==========================================
+
         const url =
-            `https://api.aladhan.com/v1/calendar/${year}/${month}` +
-            `?latitude=${latitude}` +
-            `&longitude=${longitude}` +
-            `&method=21` +
-            `&school=0` +
-            `&midnightMode=0` +
-            `&latitudeAdjustmentMethod=1` +
-            `&iso8601=false`;
+            getCalendarUrl(year, month);
 
 
         const response =
@@ -112,19 +124,16 @@ async function load30Days() {
         const nextMonth =
             nextMonthDate.getMonth() + 1;
 
+
         const nextYear =
             nextMonthDate.getFullYear();
 
 
         const nextUrl =
-            `https://api.aladhan.com/v1/calendar/${nextYear}/${nextMonth}` +
-            `?latitude=${latitude}` +
-            `&longitude=${longitude}` +
-            `&method=21` +
-            `&school=0` +
-            `&midnightMode=0` +
-            `&latitudeAdjustmentMethod=1` +
-            `&iso8601=false`;
+            getCalendarUrl(
+                nextYear,
+                nextMonth
+            );
 
 
         const nextResponse =
@@ -203,7 +212,7 @@ async function load30Days() {
 
 
         console.log(
-            "تم حفظ مواقيت 30 يوم القادمة ✅"
+            "تم تحميل وحفظ مواقيت 30 يوم القادمة ✅"
         );
 
 
@@ -302,25 +311,29 @@ function displayPrayerData(dayData) {
     }
 
 
-    prayerTimes =
-        dayData.timings;
-
-
     // ==========================================
     // PRAYER TIMES
     // ==========================================
 
+    prayerTimes =
+        dayData.timings;
+
+
     document.getElementById("Fajr").textContent =
         cleanTime(prayerTimes.Fajr);
+
 
     document.getElementById("Dhuhr").textContent =
         cleanTime(prayerTimes.Dhuhr);
 
+
     document.getElementById("Asr").textContent =
         cleanTime(prayerTimes.Asr);
 
+
     document.getElementById("Maghrib").textContent =
         cleanTime(prayerTimes.Maghrib);
+
 
     document.getElementById("Isha").textContent =
         cleanTime(prayerTimes.Isha);
@@ -344,36 +357,72 @@ function displayPrayerData(dayData) {
         dayData.date.hijri;
 
 
+    // اليوم الهجري اللي رجعاتو API
+    const apiHijriDay =
+        Number(hijri.day);
+
+
+    // ==========================================
+    // ننقصو يوم واحد
+    // ==========================================
+
+    let hijriDay =
+        apiHijriDay - 1;
+
+
+    // حماية من رقم 0
+    if (hijriDay < 1) {
+
+        hijriDay = 1;
+
+    }
+
+
+    console.log(
+        "Hijri API:",
+        apiHijriDay
+    );
+
+
+    console.log(
+        "Hijri corrected:",
+        hijriDay
+    );
+
+
+    // ==========================================
+    // DISPLAY HIJRI DATE
+    // ==========================================
+
     document.getElementById(
         "hijriDate"
     ).textContent =
-        `${hijri.day} ${hijri.month.ar} ${hijri.year} هـ`;
+        `${hijriDay} ${hijri.month.ar} ${hijri.year} هـ`;
 
 
     // ==========================================
-    // HIZB SABAH / MASSAE
+    // HIZB SABAH
     // ==========================================
-
-    const hijriDay = Number(hijri.day) - 1;
-
 
     const hizbSbah =
         (hijriDay * 2) - 1;
 
 
+    // ==========================================
+    // HIZB MASSAE
+    // ==========================================
+
     const hizbMassae =
         hijriDay * 2;
 
 
+    // ==========================================
+    // DISPLAY HIZB SABAH
+    // ==========================================
+
     const hizbSbahElement =
         document.getElementById(
             "hizbSbah"
-        );
-
-
-    const hizbMassaeElement =
-        document.getElementById(
-            "hizbMassae"
         );
 
 
@@ -383,6 +432,16 @@ function displayPrayerData(dayData) {
             `حزب ${hizbSbah}`;
 
     }
+
+
+    // ==========================================
+    // DISPLAY HIZB MASSAE
+    // ==========================================
+
+    const hizbMassaeElement =
+        document.getElementById(
+            "hizbMassae"
+        );
 
 
     if (hizbMassaeElement) {
@@ -421,7 +480,6 @@ function getHizbJomoa() {
         );
 
 
-    // إلا ما كانش العنصر فالصفحة
     if (!element) {
 
         return;
@@ -433,7 +491,10 @@ function getHizbJomoa() {
         new Date();
 
 
+    // ==========================================
     // الجمعة 11 شتنبر 2026 = حزب 7
+    // ==========================================
+
     const referenceFriday =
         new Date(
             2026,
@@ -443,8 +504,12 @@ function getHizbJomoa() {
 
 
     const referenceHizb =
-        8;
+        7;
 
+
+    // ==========================================
+    // الفرق بالأيام
+    // ==========================================
 
     const difference =
         today.getTime() -
@@ -458,17 +523,28 @@ function getHizbJomoa() {
         );
 
 
+    // ==========================================
+    // الفرق بالأسابيع
+    // ==========================================
+
     const weeks =
         Math.floor(
             daysDifference / 7
         );
 
 
+    // ==========================================
+    // حساب حزب الجمعة
+    // ==========================================
+
     let hizb =
         referenceHizb + weeks;
 
 
+    // ==========================================
     // الدوران من 60 إلى 1
+    // ==========================================
+
     hizb =
         ((hizb - 1) % 60) + 1;
 
@@ -517,9 +593,14 @@ function updateNextPrayer() {
     let nextPrayer =
         null;
 
+
     let nextTime =
         null;
 
+
+    // ==========================================
+    // البحث عن الصلاة القادمة
+    // ==========================================
 
     for (const prayer of prayers) {
 
@@ -557,8 +638,10 @@ function updateNextPrayer() {
             nextPrayer =
                 prayer;
 
+
             nextTime =
                 prayerDate;
+
 
             break;
 
@@ -568,7 +651,7 @@ function updateNextPrayer() {
 
 
     // ==========================================
-    // FAJR TOMORROW
+    // إلا سالاو الصلوات → الفجر ديال غدا
     // ==========================================
 
     if (!nextPrayer) {
@@ -622,7 +705,7 @@ function updateNextPrayer() {
 
 
     // ==========================================
-    // HIGHLIGHT
+    // REMOVE OLD HIGHLIGHT
     // ==========================================
 
     document
@@ -638,6 +721,10 @@ function updateNextPrayer() {
         });
 
 
+    // ==========================================
+    // HIGHLIGHT NEXT PRAYER
+    // ==========================================
+
     const card =
         document.querySelector(
             `.prayer-card[data-prayer="${nextPrayer.key}"]`
@@ -652,6 +739,10 @@ function updateNextPrayer() {
 
     }
 
+
+    // ==========================================
+    // START COUNTDOWN
+    // ==========================================
 
     startCountdown(
         nextTime
@@ -686,6 +777,10 @@ function startCountdown(targetTime) {
             now.getTime();
 
 
+        // ==========================================
+        // الصلاة وصل وقتها
+        // ==========================================
+
         if (difference <= 0) {
 
             clearInterval(
@@ -695,16 +790,25 @@ function startCountdown(targetTime) {
 
             initializePrayerTimes();
 
+
             return;
 
         }
 
+
+        // ==========================================
+        // HOURS
+        // ==========================================
 
         const hours =
             Math.floor(
                 difference / 3600000
             );
 
+
+        // ==========================================
+        // MINUTES
+        // ==========================================
 
         const minutes =
             Math.floor(
@@ -713,12 +817,20 @@ function startCountdown(targetTime) {
             );
 
 
+        // ==========================================
+        // SECONDS
+        // ==========================================
+
         const seconds =
             Math.floor(
                 (difference % 60000) /
                 1000
             );
 
+
+        // ==========================================
+        // DISPLAY
+        // ==========================================
 
         document.getElementById(
             "countdown"
@@ -788,9 +900,17 @@ async function initializePrayerTimes() {
     }
 
 
+    // ==========================================
+    // GET TODAY
+    // ==========================================
+
     const todayData =
         getTodayData(days);
 
+
+    // ==========================================
+    // DISPLAY
+    // ==========================================
 
     displayPrayerData(
         todayData
