@@ -757,3 +757,191 @@ footer p {
     }
 
 }
+/* ==========================================
+   HIZB SABAH / MASSAE
+========================================== */
+
+.hizb-section {
+    padding: 85px 0;
+    background: #ffffff;
+}
+
+
+.hizb-grid {
+    max-width: 900px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+
+.hizb-card {
+    position: relative;
+
+    background: #f7f5ef;
+
+    border: 1px solid #eee;
+
+    border-radius: 12px;
+
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+
+    overflow: hidden;
+
+    transition: .3s ease;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.05);
+}
+
+
+.hizb-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: #b28a45;
+}
+
+
+.hizb-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.09);
+}
+
+
+/* ICON */
+
+.hizb-icon {
+    width: 70px;
+    height: 70px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #203d36;
+
+    border-radius: 50%;
+
+    font-size: 32px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+}
+
+
+
+.hizb-content {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+
+.hizb-label {
+    color: #b28a45;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 3px;
+}
+
+
+.hizb-content strong {
+    font-family: "Cairo", sans-serif;
+
+    font-size: 30px;
+
+    color: #203d36;
+
+    line-height: 1.4;
+}
+
+
+.hizb-content p {
+    margin-top: 3px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .hizb-section {
+        padding: 65px 15px;
+    }
+
+
+    .hizb-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    .hizb-card {
+        padding: 25px 20px;
+
+        gap: 20px;
+    }
+
+
+    .hizb-icon {
+        width: 60px;
+        height: 60px;
+
+        font-size: 27px;
+    }
+
+
+    .hizb-content strong {
+        font-size: 27px;
+    }
+
+}
+
+/* ================= FIX HERO BUTTONS ================= */
+
+.slide-content {
+    z-index: 5;
+}
+
+.buttons {
+    position: relative;
+    z-index: 50;
+}
+
+.buttons .btn {
+    position: relative;
+    z-index: 51;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+
+

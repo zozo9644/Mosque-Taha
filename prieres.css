@@ -1,0 +1,876 @@
+/* ==========================================
+   MOSQUE TAHA - PRAYER DASHBOARD
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    background: #dfe4df;
+    color: #203d36;
+    overflow-x: hidden;
+}
+
+
+/* ==========================================
+   MAIN FRAME
+========================================== */
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+
+    padding: 0;
+}
+
+.dashboard {
+    width: 100%;
+    max-width: none;
+
+    min-height: 100vh;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.prayer-header {
+    height: 62px;
+
+    background: #203d36;
+
+    border-radius: 0;
+}
+
+.header-container {
+    width: 94%;
+    height: 100%;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img {
+    height: 45px;
+    width: auto;
+}
+
+.back-button {
+    color: white;
+    text-decoration: none;
+
+    padding: 7px 16px;
+
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 7px;
+
+    font-size: 13px;
+
+    transition: .3s;
+}
+
+.back-button:hover {
+    background: #b28a45;
+    border-color: #b28a45;
+}
+
+
+/* ==========================================
+   CONTENT FRAME
+========================================== */
+
+main {
+    background: #f7f5ef;
+
+    border-radius: 0;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 45px rgba(0,0,0,.15);
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero {
+
+    min-height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(32,61,54,.98),
+            rgba(32,61,54,.98)
+        );
+
+    color: white;
+}
+
+.hero-content {
+    padding: 18px 15px;
+}
+
+.arabic-small {
+    color: #d4b477;
+
+    font-size: 14px;
+}
+
+.hero h1 {
+
+    margin-top: 3px;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+}
+
+.hero p {
+
+    margin-top: 2px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 15px;
+}
+
+.gold-line {
+
+    width: 55px;
+    height: 2px;
+
+    background: #b28a45;
+
+    margin: 7px auto;
+}
+
+.dates {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    font-size: 12px;
+}
+
+#hijriDate {
+    color: #d4b477;
+}
+
+
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.container {
+
+    width: 94%;
+
+    max-width: 1250px;
+
+    margin: auto;
+}
+
+
+/* ==========================================
+   NEXT PRAYER
+========================================== */
+
+.next-section {
+
+    padding: 12px 0 8px;
+}
+
+.next-card {
+
+    max-width: 520px;
+
+    margin: auto;
+
+    padding: 12px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 11px;
+
+    border-top: 3px solid #b28a45;
+
+    box-shadow: 0 7px 20px rgba(0,0,0,.06);
+}
+
+.next-label {
+
+    color: #b28a45;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.next-card h2 {
+
+    margin-top: 0;
+
+    font-size: 23px;
+}
+
+.countdown {
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: 1px;
+}
+
+.next-message {
+
+    color: #888;
+
+    font-size: 10px;
+}
+
+
+/* ==========================================
+   SECTION HEADING
+========================================== */
+
+.section-heading {
+
+    text-align: center;
+
+    margin-bottom: 12px;
+}
+
+.section-heading span {
+
+    color: #b28a45;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.section-heading h2 {
+
+    margin-top: 0;
+
+    font-size: 21px;
+}
+
+.section-heading p {
+
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   PRAYER TIMES
+========================================== */
+
+.times-section {
+
+    padding: 12px 0 15px;
+}
+
+.prayer-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 12px;
+}
+
+.prayer-card {
+
+    position: relative;
+
+    background: white;
+
+    padding: 14px 8px;
+
+    border-radius: 11px;
+
+    text-align: center;
+
+    border: 1px solid #eee;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.05);
+
+    transition: .25s;
+}
+
+.prayer-card:hover {
+
+    transform: translateY(-3px);
+}
+
+.prayer-card.next {
+
+    border: 2px solid #b28a45;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(178,138,69,.18);
+}
+
+.prayer-card.next::before {
+
+    content: "الصلاة القادمة";
+
+    position: absolute;
+
+    top: -9px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #b28a45;
+
+    color: white;
+
+    padding: 2px 8px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+.prayer-icon {
+
+    font-size: 22px;
+
+    margin-bottom: 3px;
+}
+
+.prayer-info span {
+
+    display: block;
+
+    color: #777;
+
+    font-size: 11px;
+}
+
+.prayer-info strong {
+
+    display: block;
+
+    margin-top: 1px;
+
+    font-size: 22px;
+
+    color: #203d36;
+}
+
+
+/* ==========================================
+   HIZB
+========================================== */
+
+.hizb-section {
+
+    padding: 12px 0 16px;
+
+    background: white;
+}
+
+.hizb-grid {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.hizb-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px 18px;
+
+    background: #f7f5ef;
+
+    border-radius: 11px;
+
+    border: 1px solid #eee;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .25s;
+}
+
+.hizb-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.07);
+}
+
+.hizb-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: #b28a45;
+}
+
+.hizb-icon {
+
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #203d36;
+
+    border-radius: 50%;
+
+    font-size: 23px;
+}
+
+.hizb-info span {
+
+    display: block;
+
+    color: #b28a45;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.hizb-info strong {
+
+    display: block;
+
+    margin-top: 0;
+
+    font-size: 25px;
+
+    line-height: 1.2;
+
+    color: #203d36;
+}
+
+.hizb-info p {
+
+    margin-top: 0;
+
+    color: #777;
+
+    font-size: 10px;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+    padding: 8px;
+
+    background: #203d36;
+
+    color: white;
+
+    text-align: center;
+
+    border-radius: 0;
+}
+
+
+footer p {
+
+    display: inline;
+
+    font-size: 10px;
+}
+
+footer span {
+
+    margin-left: 12px;
+
+    color: #d4b477;
+
+    font-size: 10px;
+}
+
+
+/* ==========================================
+   SMALL LAPTOPS
+========================================== */
+
+@media (max-height: 750px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .prayer-header {
+        height: 52px;
+    }
+
+    .logo img {
+        height: 38px;
+    }
+
+    .hero {
+        min-height: 125px;
+    }
+
+    .hero h1 {
+        font-size: 25px;
+    }
+
+    .next-section {
+        padding: 8px 0 5px;
+    }
+
+    .next-card {
+        padding: 9px 15px;
+    }
+
+    .countdown {
+        font-size: 23px;
+    }
+
+    .times-section {
+        padding: 8px 0 10px;
+    }
+
+    .prayer-card {
+        padding: 10px 6px;
+    }
+
+    .hizb-section {
+        padding: 8px 0 10px;
+    }
+
+    .hizb-card {
+        padding: 10px 15px;
+    }
+
+    .hizb-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 0;
+        align-items: flex-start;
+    }
+
+    .prayer-header {
+        border-radius: 0;
+    }
+
+    main {
+        border-radius: 0;
+    }
+
+    .hero {
+        min-height: 145px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .dates {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .prayer-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .prayer-card:last-child {
+        grid-column: span 2;
+    }
+
+    .hizb-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ==========================================
+   VERY SMALL PHONES
+========================================== */
+
+@media (max-width: 400px) {
+
+    .hero h1 {
+        font-size: 25px;
+    }
+
+    .hero {
+        min-height: 130px;
+    }
+
+    .next-card h2 {
+        font-size: 20px;
+    }
+
+    .countdown {
+        font-size: 22px;
+    }
+
+    .prayer-info strong {
+        font-size: 20px;
+    }
+
+}
+/* ==========================================
+   BIGGER CONTENT
+========================================== */
+
+/* HERO */
+.hero {
+    min-height: 175px;
+}
+
+.hero h1 {
+    font-size: 36px;
+}
+
+.arabic-small {
+    font-size: 16px;
+}
+
+.hero p {
+    font-size: 17px;
+}
+
+.dates {
+    font-size: 14px;
+}
+
+
+/* NEXT PRAYER */
+.next-section {
+    padding: 16px 0 12px;
+}
+
+.next-card {
+    max-width: 600px;
+    padding: 16px 25px;
+}
+
+.next-label {
+    font-size: 13px;
+}
+
+.next-card h2 {
+    font-size: 28px;
+}
+
+.countdown {
+    font-size: 34px;
+}
+
+.next-message {
+    font-size: 11px;
+}
+
+
+/* SECTION TITLES */
+.section-heading {
+    margin-bottom: 15px;
+}
+
+.section-heading span {
+    font-size: 12px;
+}
+
+.section-heading h2 {
+    font-size: 24px;
+}
+
+.section-heading p {
+    font-size: 12px;
+}
+
+
+/* PRAYER CARDS */
+.prayer-card {
+    padding: 18px 10px;
+    min-height: 135px;
+}
+
+.prayer-icon {
+    font-size: 27px;
+}
+
+.prayer-info span {
+    font-size: 13px;
+}
+
+.prayer-info strong {
+    font-size: 25px;
+}
+
+
+/* HIZB */
+.hizb-card {
+    padding: 18px 22px;
+}
+
+.hizb-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 26px;
+}
+
+.hizb-info span {
+    font-size: 13px;
+}
+
+.hizb-info strong {
+    font-size: 28px;
+}
+
+.hizb-info p {
+    font-size: 11px;
+}
+
+
+/* FOOTER */
+footer p,
+footer span {
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   KEEP SMALL LAPTOP RESPONSIVE
+========================================== */
+
+@media (max-height: 750px) and (min-width: 701px) {
+
+    .hero {
+        min-height: 145px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .next-section {
+        padding: 10px 0 7px;
+    }
+
+    .next-card {
+        padding: 11px 20px;
+    }
+
+    .next-card h2 {
+        font-size: 24px;
+    }
+
+    .countdown {
+        font-size: 28px;
+    }
+
+    .prayer-card {
+        min-height: 105px;
+        padding: 12px 8px;
+    }
+
+    .prayer-info strong {
+        font-size: 21px;
+    }
+
+    .hizb-card {
+        padding: 12px 18px;
+    }
+
+    .hizb-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .hizb-info strong {
+        font-size: 23px;
+    }
+}
+
+

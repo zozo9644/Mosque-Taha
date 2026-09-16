@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>مواقيت الصلاة | Mosquée Taha</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="prieres.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <header class="prayer-header">
+
+        <div class="header-container">
+
+
+            <!-- LOGO -->
+
+            <a href="index.html"
+               class="logo">
+
+                <img src="images/logo.png"
+                     alt="Mosquée Taha">
+
+            </a>
+
+
+            <!-- TITLE -->
+
+            <div class="header-title">
+
+                <span>
+                    مسجد طه
+                </span>
+
+                <strong>
+                    Mosquée Taha
+                </strong>
+
+            </div>
+
+
+            <!-- BACK BUTTON -->
+
+            <a href="index.html"
+               class="back-button">
+
+                ← Retour au site
+
+            </a>
+
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================================================= -->
+    <!-- MAIN -->
+    <!-- ================================================= -->
+
+    <main>
+
+
+        <!-- ============================================= -->
+        <!-- TOP / HERO -->
+        <!-- ============================================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+
+                <span class="arabic-small">
+
+                    بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+
+                </span>
+
+
+                <h1>
+
+                    مواقيت الصلاة
+
+                </h1>
+
+
+                <p>
+
+                    Mosquée Taha
+
+                </p>
+
+
+                <div class="gold-line"></div>
+
+
+                <!-- DATES -->
+
+                <div class="dates">
+
+
+                    <div class="date-box">
+
+                        <span>
+                            التاريخ الميلادي
+                        </span>
+
+                        <strong id="gregorianDate">
+                            Chargement...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="date-box">
+
+                        <span>
+                            التاريخ الهجري
+                        </span>
+
+                        <strong id="hijriDate">
+                            Chargement...
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================================= -->
+        <!-- NEXT PRAYER -->
+        <!-- ============================================= -->
+
+        <section class="next-section">
+
+            <div class="container">
+
+                <div class="next-card">
+
+
+                    <div class="next-label">
+
+                        الصلاة القادمة
+
+                    </div>
+
+
+                    <h2 id="nextPrayerName">
+
+                        Chargement...
+
+                    </h2>
+
+
+                    <div id="countdown"
+                         class="countdown">
+
+                        --:--:--
+
+                    </div>
+
+
+                    <div class="next-message">
+
+                        الوقت المتبقي للصلاة القادمة
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================================= -->
+        <!-- PRAYER TIMES -->
+        <!-- ============================================= -->
+
+        <section class="times-section">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+                    <span>
+                        أوقات اليوم
+                    </span>
+
+                    <h2>
+                        مواقيت الصلوات
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                </div>
+
+
+
+                <div class="prayer-grid">
+
+
+                    <!-- FAJR -->
+
+                    <div class="prayer-card"
+                         data-prayer="Fajr">
+
+                        <div class="prayer-icon">
+                            🌅
+                        </div>
+
+                        <div class="prayer-info">
+
+                            <span>
+                                الفجر
+                            </span>
+
+                            <strong id="Fajr">
+                                --:--
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DHUHR -->
+
+                    <div class="prayer-card"
+                         data-prayer="Dhuhr">
+
+                        <div class="prayer-icon">
+                            ☀️
+                        </div>
+
+                        <div class="prayer-info">
+
+                            <span>
+                                الظهر
+                            </span>
+
+                            <strong id="Dhuhr">
+                                --:--
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ASR -->
+
+                    <div class="prayer-card"
+                         data-prayer="Asr">
+
+                        <div class="prayer-icon">
+                            🌤️
+                        </div>
+
+                        <div class="prayer-info">
+
+                            <span>
+                                العصر
+                            </span>
+
+                            <strong id="Asr">
+                                --:--
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MAGHRIB -->
+
+                    <div class="prayer-card"
+                         data-prayer="Maghrib">
+
+                        <div class="prayer-icon">
+                            🌇
+                        </div>
+
+                        <div class="prayer-info">
+
+                            <span>
+                                المغرب
+                            </span>
+
+                            <strong id="Maghrib">
+                                --:--
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ISHA -->
+
+                    <div class="prayer-card"
+                         data-prayer="Isha">
+
+                        <div class="prayer-icon">
+                            🌙
+                        </div>
+
+                        <div class="prayer-info">
+
+                            <span>
+                                العشاء
+                            </span>
+
+                            <strong id="Isha">
+                                --:--
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================================= -->
+        <!-- HIZB -->
+        <!-- ============================================= -->
+
+        <section class="hizb-section">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+                    <span>
+                        وَرْدُ الْيَوْمِ
+                    </span>
+
+                    <h2>
+                        حزب الصباح والمساء
+                    </h2>
+
+                    <div class="gold-line"></div>
+
+                    <p>
+                        ورد القرآن الكريم لهذا اليوم
+                    </p>
+
+                </div>
+
+
+
+                <div class="hizb-grid">
+
+
+                    <!-- ================================= -->
+                    <!-- MORNING HIZB -->
+                    <!-- ================================= -->
+
+                    <div class="hizb-card morning">
+
+
+                        <div class="hizb-icon">
+
+                            🌅
+
+                        </div>
+
+
+                        <div class="hizb-info">
+
+                            <span>
+                                حزب الصباح
+                            </span>
+
+
+                            <strong id="hizbSbah">
+
+                                --
+
+                            </strong>
+
+
+                            <p>
+                                بعد صلاة الفجر
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ================================= -->
+                    <!-- EVENING HIZB -->
+                    <!-- ================================= -->
+
+                    <div class="hizb-card evening">
+
+
+                        <div class="hizb-icon">
+
+                            🌙
+
+                        </div>
+
+
+                        <div class="hizb-info">
+
+                            <span>
+                                حزب المساء
+                            </span>
+
+
+                            <strong id="hizbMassae">
+
+                                --
+
+                            </strong>
+
+
+                            <p>
+                                بعد صلاة المغرب
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================================= -->
+    <!-- FOOTER -->
+    <!-- ================================================= -->
+
+    <footer>
+
+
+        <p>
+
+            © 2026 Mosquée Taha
+
+        </p>
+
+
+        <span>
+
+            مسجد طه
+
+        </span>
+
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script src="prieres.js"></script>
+
+
+</body>
+
+</html>
