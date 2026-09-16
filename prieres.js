@@ -26,11 +26,14 @@ let countdownInterval = null;
 
 function formatDate(date) {
 
-    const day = String(date.getDate()).padStart(2, "0");
+    const day =
+        String(date.getDate()).padStart(2, "0");
 
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
 
-    const year = date.getFullYear();
+    const year =
+        date.getFullYear();
 
     return `${day}-${month}-${year}`;
 }
@@ -64,11 +67,14 @@ async function load30Days() {
 
     try {
 
-        const now = new Date();
+        const now =
+            new Date();
 
-        const year = now.getFullYear();
+        const year =
+            now.getFullYear();
 
-        const month = now.getMonth() + 1;
+        const month =
+            now.getMonth() + 1;
 
 
         // ==========================================
@@ -76,7 +82,10 @@ async function load30Days() {
         // ==========================================
 
         const url =
-            getCalendarUrl(year, month);
+            getCalendarUrl(
+                year,
+                month
+            );
 
 
         const response =
@@ -320,23 +329,33 @@ function displayPrayerData(dayData) {
 
 
     document.getElementById("Fajr").textContent =
-        cleanTime(prayerTimes.Fajr);
+        cleanTime(
+            prayerTimes.Fajr
+        );
 
 
     document.getElementById("Dhuhr").textContent =
-        cleanTime(prayerTimes.Dhuhr);
+        cleanTime(
+            prayerTimes.Dhuhr
+        );
 
 
     document.getElementById("Asr").textContent =
-        cleanTime(prayerTimes.Asr);
+        cleanTime(
+            prayerTimes.Asr
+        );
 
 
     document.getElementById("Maghrib").textContent =
-        cleanTime(prayerTimes.Maghrib);
+        cleanTime(
+            prayerTimes.Maghrib
+        );
 
 
     document.getElementById("Isha").textContent =
-        cleanTime(prayerTimes.Isha);
+        cleanTime(
+            prayerTimes.Isha
+        );
 
 
     // ==========================================
@@ -487,11 +506,12 @@ function getHizbJomoa() {
     }
 
 
-    const today =
+    const now =
         new Date();
 
 
     // ==========================================
+    // المرجع
     // الجمعة 11 شتنبر 2026 = حزب 7
     // ==========================================
 
@@ -499,20 +519,23 @@ function getHizbJomoa() {
         new Date(
             2026,
             8,
-            11
+            11,
+            0,
+            0,
+            0
         );
 
 
     const referenceHizb =
-        8;
+        7;
 
 
     // ==========================================
-    // الفرق بالأيام
+    // نحسبو الفرق بالأيام
     // ==========================================
 
     const difference =
-        today.getTime() -
+        now.getTime() -
         referenceFriday.getTime();
 
 
@@ -524,12 +547,18 @@ function getHizbJomoa() {
 
 
     // ==========================================
-    // الفرق بالأسابيع
+    // كل جمعة كتبدأ دورة جديدة
+    //
+    // 11 سبتمبر → حزب 7
+    // 12 سبتمبر → حزب 8
+    // ...
+    // 18 سبتمبر → حزب 8
+    // 19 سبتمبر → حزب 9
     // ==========================================
 
     const weeks =
         Math.floor(
-            daysDifference / 7
+            (daysDifference + 1) / 7
         );
 
 
@@ -548,6 +577,10 @@ function getHizbJomoa() {
     hizb =
         ((hizb - 1) % 60) + 1;
 
+
+    // ==========================================
+    // DISPLAY
+    // ==========================================
 
     element.textContent =
         `حزب ${hizb}`;
@@ -905,7 +938,9 @@ async function initializePrayerTimes() {
     // ==========================================
 
     const todayData =
-        getTodayData(days);
+        getTodayData(
+            days
+        );
 
 
     // ==========================================
