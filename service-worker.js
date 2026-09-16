@@ -1,4 +1,4 @@
-const CACHE_NAME = "mosquee-taha-v5";
+const CACHE_NAME = "mosquee-taha-v6";
 
 const FILES_TO_CACHE = [
     "./",
