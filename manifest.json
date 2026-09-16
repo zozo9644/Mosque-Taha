@@ -1,0 +1,19 @@
+{
+  "name": "مسجد طه",
+  "short_name": "مسجد طه",
+  "description": "الموقع الرسمي لمسجد طه - مواقيت الصلاة وحزب اليوم",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#203d36",
+  "theme_color": "#203d36",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

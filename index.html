@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="manifest" href="manifest.json">
 
+     <meta name="theme-color" content="#203d36">
+
+     <link rel="apple-touch-icon" href="images/logo.png">
     <title>مـسـجـد طـه | Mosquée Taha</title>
 
     <link rel="stylesheet" href="style.css">
@@ -513,6 +517,19 @@
 
 
 <script src="script.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => {
+                    console.log("Service Worker registered");
+                })
+                .catch(error => {
+                    console.error("Service Worker error:", error);
+                });
+        });
+    }
+</script>
 
 </body>
 </html>

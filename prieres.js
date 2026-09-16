@@ -143,6 +143,42 @@ async function getPrayerTimes() {
         ).textContent =
             `حزب ${hizbMassae}`;
 
+           
+
+function getHizbJomoa() {
+
+    const today = new Date();
+
+    // الجمعة 11 شتنبر 2026 = حزب 7
+    const referenceFriday = new Date(2026, 8, 11);
+
+    const referenceHizb = 8;
+
+    const difference =
+        today.getTime() - referenceFriday.getTime();
+
+    const daysDifference =
+        Math.floor(
+            difference / (1000 * 60 * 60 * 24)
+        );
+
+    const weeks =
+        Math.floor(daysDifference / 7);
+
+    let hizb =
+        referenceHizb + weeks;
+
+    // من بعد حزب 60 يرجع لحزب 1
+    hizb =
+        ((hizb - 1) % 60) + 1;
+
+    document.getElementById("hizbJomoa").textContent =
+        `حزب ${hizb}`;
+}
+
+getHizbJomoa();
+
+
 
         // ==========================================
         // NEXT PRAYER

@@ -9,6 +9,11 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>مواقيت الصلاة | Mosquée Taha</title>
+     <link rel="manifest" href="manifest.json">
+
+      <meta name="theme-color" content="#203d36">
+
+     <link rel="apple-touch-icon" href="images/logo.png">
 
     <!-- CSS -->
     <link rel="stylesheet"
@@ -478,6 +483,25 @@
                 </div>
 
             </div>
+          
+<!-- حزب الجمعة -->
+
+<div class="hizb-card jomoa">
+    <div class="hizb-icon">
+        🕌
+    </div>
+
+    <div class="hizb-info">
+        <span>حزب الجمعة</span>
+
+        <strong id="hizbJomoa">
+            --
+        </strong>
+
+        <p>بعد صلاة الجمعة</p>
+    </div>
+</div>
+
 
         </section>
 
@@ -519,6 +543,19 @@
 <!-- ================================================= -->
 
 <script src="prieres.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => {
+                    console.log("Service Worker registered");
+                })
+                .catch(error => {
+                    console.error("Service Worker error:", error);
+                });
+        });
+    }
+</script>
 
 
 </body>

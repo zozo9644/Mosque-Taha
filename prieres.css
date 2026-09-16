@@ -426,6 +426,12 @@ main {
 
     gap: 15px;
 }
+/* حزب الجمعة في الوسط */
+.hizb-card.jomoa {
+    grid-column: 1 / -1;
+    width: calc(50% - 7.5px);
+    justify-self: center;
+}
 
 .hizb-card {
 
