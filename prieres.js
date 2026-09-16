@@ -354,8 +354,7 @@ function displayPrayerData(dayData) {
     // HIZB SABAH / MASSAE
     // ==========================================
 
-    const hijriDay =
-        Number(hijri.day);
+    const hijriDay = Number(hijri.day) - 1;
 
 
     const hizbSbah =
