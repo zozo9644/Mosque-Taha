@@ -527,7 +527,7 @@ function getHizbJomoa() {
 
 
     const referenceHizb =
-        8;
+        7;
 
 
     // ==========================================
